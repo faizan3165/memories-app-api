@@ -15,9 +15,7 @@ app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-
-
-app.options('*', cors());
+// app.options('*', cors());
 
 app.use('/posts', postRoutes);
 
