@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import {} from 'dotenv/config'
+import {} from 'dotenv/config';
 
 // import dotenv from 'dotenv';
 
@@ -11,8 +11,8 @@ const app = express();
 
 // dotenv.config();
 
-app.use(express.json({ limit: '30mb', extended: true }));
-app.use(express.urlencoded({ limit: '30mb', extended: true }));
+app.use(express.json({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // var whitelist = ['http://localhost:5000', 'https://memories-react-prject.herokuapp.com/posts']
