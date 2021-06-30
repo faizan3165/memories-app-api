@@ -4,9 +4,9 @@ import { getPosts, getPost, createPost, updatePost, deletePost, likePost } from 
 
 const router = express.Router();
 
-router.get('/', getPosts);
+router.get('/', cors(corsOptionsDelegate), getPosts);
 
-router.get('/:id', getPost)
+router.get('/:id', cors(corsOptionsDelegate), getPost)
 
 router.post('/', createPost);
 
