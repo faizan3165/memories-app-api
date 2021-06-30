@@ -18,7 +18,7 @@ var corsOptionsDelegate = function(req, callback){
 	callback(null, corsOptions); // callback expects two parameters: error and options
 };
 
-router.get('/', getPosts);
+router.get('/', cors(corsOptionsDelegate), getPosts);
 router.post('/', createPost);
 router.get('/:id', cors(corsOptionsDelegate), getPost);
 router.patch('/:id', updatePost);
