@@ -1,18 +1,34 @@
 import express from 'express';
+import cors from 'cors';
 
 import { getPosts, getPost, createPost, updatePost, deletePost, likePost } from '../controllers/posts.js';
 
 const router = express.Router();
 
-router.get('/',  getPosts);
+const whitelist = [
+	'http://localhost:5000',
+	'https://serene-river-10220.herokuapp.com/posts'
+];
 
-router.get('/:id',  getPost)
+const corsOptionsDelegate = function(req, callback){
+	const corsOptions;
+	if (whitelist.indexOf(req.header('Origin')) !== -1 || !origin) {
+		corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+	} else {
+		corsOptions = { origin: false }; // disable CORS for this request
+	}
+	callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
+router.get('/', cors(corsOptionsDelegate), getPosts);
+
+router.get('/:id', cors(corsOptionsDelegate), getPost);
 
 router.post('/', createPost);
 
 router.patch('/:id', updatePost);
 
-router.delete('/:id', deletePost)
+router.delete('/:id', deletePost);
 
-router.patch('/:id/likePost',likePost)
+router.patch('/:id/likePost', likePost);
 export default router;
