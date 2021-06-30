@@ -5,13 +5,13 @@ import { getPosts, getPost, createPost, updatePost, deletePost, likePost } from 
 
 const router = express.Router();
 
-const whitelist = [
+var whitelist = [
 	'http://localhost:5000',
 	'https://serene-river-10220.herokuapp.com/posts'
 ];
 
-const corsOptionsDelegate = function(req, callback){
-    const corsOptions = null;
+var corsOptionsDelegate = function(req, callback){
+	var corsOptions;
 	if (whitelist.indexOf(req.header('Origin')) !== -1) {
 		corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
 	} else {
