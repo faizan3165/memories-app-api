@@ -26,6 +26,8 @@ app.use(cors());
 //   callback(null, corsOptions) // callback expects two parameters: error and options
 // }
 
+app.options('*', cors());
+
 app.use('/posts', postRoutes);
 
 app.get('/', (req, res) => {
