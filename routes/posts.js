@@ -4,9 +4,23 @@ import { getPosts, getPost, createPost, updatePost, likePost, deletePost } from 
 
 const router = express.Router();
 
+var whitelist = [
+	'https://ajjeeb.netlify.app/',
+	'http://localhost:5000'
+];
+var corsOptionsDelegate = function(req, callback){
+	var corsOptions;
+	if (whitelist.indexOf(req.header('Origin')) !== -1) {
+		corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+	} else {
+		corsOptions = { origin: false }; // disable CORS for this request
+	}
+	callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
 router.get('/', getPosts);
 router.post('/', createPost);
-router.get('/:id', getPost);
+router.get('/:id', cors(corsOptionsDelegate), getPost);
 router.patch('/:id', updatePost);
 router.delete('/:id', deletePost);
 router.patch('/:id/likePost', likePost);
