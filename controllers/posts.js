@@ -1,10 +1,11 @@
+import express from 'express';
+import mongoose from 'mongoose';
 
 import PostMessage from '../models/postMessage.js';
 
-import mongoose from 'mongoose';
+const router = express.Router();
 
-
-export const getPosts = async (req, res, ) => {
+export const getPosts = async (req, res) => {
 	try {
 		const postMessages = await PostMessage.find();
 
@@ -16,6 +17,7 @@ export const getPosts = async (req, res, ) => {
 
 export const getPost = async (req, res) => {
 	const { id } = req.params;
+
 	try {
 		const post = await PostMessage.findById(id);
 
@@ -26,14 +28,14 @@ export const getPost = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-	const post = req.body;
+	const { title, message, selectedFile, creator, tags } = req.body;
 
-	const newPost = new PostMessage(post);
+	const newPostMessage = new PostMessage({ title, message, selectedFile, creator, tags });
 
 	try {
-		await newPost.save();
+		await newPostMessage.save();
 
-		res.status(201).json(newPost);
+		res.status(201).json(newPostMessage);
 	} catch (error) {
 		res.status(409).json({ message: error.message });
 	}
@@ -57,13 +59,9 @@ export const deletePost = async (req, res) => {
 
 	if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-	try {
-		await PostMessage.findByIdAndRemove(id);
+	await PostMessage.findByIdAndRemove(id);
 
-		res.status(200).send('Post Deleted');
-	} catch (error) {
-		res.status(404).json({ message: error.message });
-	}
+	res.json({ message: 'Post deleted successfully.' });
 };
 
 export const likePost = async (req, res) => {
@@ -77,3 +75,5 @@ export const likePost = async (req, res) => {
 
 	res.json(updatedPost);
 };
+
+export default router;
