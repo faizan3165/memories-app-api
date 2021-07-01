@@ -36,6 +36,7 @@ export const createPost = async (req, res) => {
 		await newPostMessage.save();
 
 		res.status(201).json(newPostMessage);
+		console.log('post created');
 	} catch (error) {
 		res.status(409).json({ message: error.message });
 	}

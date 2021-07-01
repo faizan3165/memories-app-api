@@ -1,3 +1,4 @@
+// const cors = require('cors')({ origin: '*' });
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -11,17 +12,32 @@ const app = express();
 
 // dotenv.config();
 
-app.use(express.json({ extended: true }));
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(express.json({ limit: '50mb', extended: true }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+// app.use(cors());
 
-// app.options('*', cors());
+const allowList = [
+	'http://localhost:3000',
+	'http://localhost:5000/posts'
+];
 
-// app.use(function(req, res, next){
-// 	res.header('Access-Control-Allow-Origin', '*');
-// 	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-// 	next();
-// });
+const corsOptionsDelegate = (req, callback) => {
+	let corsOptions;
+
+	let isDomainAllowed = allowList.indexOf(req.header('Origin')) !== -1;
+	// let isExtensionAllowed = req.path.endsWith('.jpg');
+
+	if (isDomainAllowed) {
+		// Enable CORS for this request
+		corsOptions = { origin: true };
+	} else {
+		// Disable CORS for this request
+		corsOptions = { origin: false };
+	}
+	callback(null, corsOptions);
+};
+
+app.use(cors(corsOptionsDelegate));
 
 app.use('/posts', postRoutes);
 
