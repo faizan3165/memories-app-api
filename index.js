@@ -17,8 +17,8 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // app.use(cors());
 
 const allowList = [
-	'https://ajjeeb.netlify.app/',
-	'https://serene-river-10220.herokuapp.com/posts'
+	'https://ajjeeb.netlify.app',
+	// 'https://serene-river-10220.herokuapp.com'
 ];
 
 const corsOptionsDelegate = (req, callback) => {
@@ -36,7 +36,6 @@ const corsOptionsDelegate = (req, callback) => {
 	}
 	callback(null, corsOptions);
 };
-
 app.use(cors(corsOptionsDelegate));
 
 app.use('/posts', postRoutes);
