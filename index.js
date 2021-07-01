@@ -17,8 +17,8 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // app.use(cors());
 
 const allowList = [
-	'http://localhost:3000',
-	'http://localhost:5000/posts'
+	'https://ajjeeb.netlify.app/',
+	'https://serene-river-10220.herokuapp.com/posts'
 ];
 
 const corsOptionsDelegate = (req, callback) => {
