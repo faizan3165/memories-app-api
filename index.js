@@ -52,6 +52,7 @@ const PORT = process.env.PORT || 5000;
 
 mongoose
 	.connect(process.env.CONNECTION_URL, {
+	// .connect(process.env.LOCAL_DB, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useCreateIndex: true
