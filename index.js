@@ -7,6 +7,7 @@ import {} from 'dotenv/config';
 // import dotenv from 'dotenv';
 
 import postRoutes from './routes/posts.js';
+import userRoutes from './routes/users.js';
 
 const app = express();
 
@@ -16,9 +17,11 @@ app.use(express.json({ limit: '50mb', extended: true }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // app.use(cors());
 
+// app.options('*', cors());
+
 const allowList = [
-	'https://ajjeeb.netlify.app',
-	// 'https://serene-river-10220.herokuapp.com'
+	// 'https://ajjeeb.netlify.app'
+	'http://localhost:3000'
 ];
 
 const corsOptionsDelegate = (req, callback) => {
@@ -39,6 +42,7 @@ const corsOptionsDelegate = (req, callback) => {
 app.use(cors(corsOptionsDelegate));
 
 app.use('/posts', postRoutes);
+app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
 	res.send('Welcome to Memories API');
@@ -47,7 +51,7 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 mongoose
-	.connect(process.env.CONNECTION_URL, {
+	.connect(process.env.LOCAL_DB, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useCreateIndex: true
