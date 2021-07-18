@@ -20,8 +20,8 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // app.options('*', cors());
 
 const allowList = [
-	'https://ajjeeb.netlify.app'
-	// 'http://localhost:3000'
+	// 'https://ajjeeb.netlify.app'
+	'http://localhost:3000'
 ];
 
 const corsOptionsDelegate = (req, callback) => {
