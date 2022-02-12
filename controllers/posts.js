@@ -22,7 +22,7 @@ export const getPosts = async (req, res) => {
 };
 
 export const getPostsBySearch = async (req, res) => {
-	const { searchQuery, tags } = req.query;
+	const { searchQuery, tags, name } = req.query;
 
 	try {
 		const title = new RegExp(searchQuery, 'i');
@@ -30,6 +30,7 @@ export const getPostsBySearch = async (req, res) => {
 		const posts = await PostMessage.find({
 			$or: [
 				{ title },
+				{ name },
 				{ tags: { $in: tags.split(',') } }
 			]
 		});
