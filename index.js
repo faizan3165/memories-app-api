@@ -50,19 +50,19 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
+// .connect(process.env.LOCAL_DB, {
+
 mongoose
-// .connect(process.env.THOSE_POSTS, {
-		.connect(process.env.CONNECTION_URL, {
-		// .connect(process.env.LOCAL_DB, {
+	.connect(process.env.CONNECTION_URL, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useCreateIndex: true
 	})
-		.then(() => {
-			app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
-		})
-		.catch((error) => {
-			console.error(error.message);
-		});
+	.then(() => {
+		app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+	})
+	.catch((error) => {
+		console.error(error.message);
+	});
 
 mongoose.set('useFindAndModify', false);
